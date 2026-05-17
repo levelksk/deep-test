@@ -1,0 +1,16 @@
+{
+  "name": "deep-test",
+  "version": "0.1.0",
+  "description": "DeepSeek + Playwright AI \u81ea\u52a8\u5316\u6d4b\u8bd5\u6846\u67b6 - \u4f4e\u6210\u672c\uff0c\u65e0\u9700\u89c6\u89c9\u6a21\u578b",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node examples/demo.js"
+  },
+  "dependencies": {
+    "playwright": "^1.52.0",
+    "openai": "^4.86.0",
+    "yaml": "^2.7.1",
+    "dotenv": "^16.4.7"
+  }
+}

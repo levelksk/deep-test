@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>deep-test 演示页面</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 40px; }
+  .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { font-size: 20px; margin-bottom: 20px; color: #333; }
+  .section { margin-bottom: 20px; padding: 16px; background: #fafafa; border-radius: 8px; border: 1px solid #eee; }
+  .section h2 { font-size: 14px; color: #666; margin-bottom: 12px; }
+  label { display: block; margin-bottom: 8px; font-size: 14px; color: #333; }
+  input[type="text"], input[type="email"], select { 
+    width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;
+  }
+  input[type="text"]:focus, input[type="email"]:focus { border-color: #4a90d9; outline: none; }
+  button { 
+    padding: 8px 20px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer;
+    background: #4a90d9; color: white; transition: all 0.2s;
+  }
+  button:hover { background: #357abd; }
+  button.success { background: #52c41a; }
+  button.success:hover { background: #45a818; }
+  button.danger { background: #ff4d4f; }
+  button.danger:hover { background: #d9363e; }
+  .checkbox-group { display: flex; gap: 16px; flex-wrap: wrap; }
+  .checkbox-group label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .radio-group { display: flex; gap: 16px; flex-wrap: wrap; }
+  .radio-group label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  #result { 
+    margin-top: 12px; padding: 12px; border-radius: 6px; font-size: 13px; display: none;
+  }
+  #result.success { display: block; background: #f6ffed; border: 1px solid #b7eb8f; color: #52c41a; }
+  #result.error { display: block; background: #fff2f0; border: 1px solid #ffccc7; color: #ff4d4f; }
+  #result.info { display: block; background: #e6f7ff; border: 1px solid #91d5ff; color: #1890ff; }
+  .counter { font-size: 28px; font-weight: bold; color: #4a90d9; text-align: center; padding: 10px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🧪 deep-test 自动化测试演示</h1>
+
+  <div class="section">
+    <h2>📝 表单操作</h2>
+    <label>用户名</label>
+    <input type="text" id="username" placeholder="请输入用户名" />
+    <label style="margin-top:10px">邮箱</label>
+    <input type="email" id="email" placeholder="请输入邮箱" />
+    <label style="margin-top:10px">城市</label>
+    <select id="city">
+      <option value="">请选择城市</option>
+      <option value="beijing">北京</option>
+      <option value="shanghai">上海</option>
+      <option value="shenzhen">深圳</option>
+      <option value="hangzhou">杭州</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <h2>🎯 按钮操作</h2>
+    <button id="btn-click" onclick="showResult('你点击了主按钮！', 'success')">点击我</button>
+    <button class="success" id="btn-submit" onclick="showResult('提交成功！', 'success')">提交</button>
+    <button class="danger" id="btn-delete" onclick="showResult('删除确认弹窗已打开', 'info')">删除</button>
+  </div>
+
+  <div class="section">
+    <h2>✅ 选项操作</h2>
+    <div class="checkbox-group">
+      <label><input type="checkbox" value="read" /> 阅读</label>
+      <label><input type="checkbox" value="sport" /> 运动</label>
+      <label><input type="checkbox" value="music" /> 音乐</label>
+    </div>
+    <div class="radio-group" style="margin-top:10px">
+      <label><input type="radio" name="option" value="A" /> 选项A</label>
+      <label><input type="radio" name="option" value="B" /> 选项B</label>
+      <label><input type="radio" name="option" value="C" /> 选项C</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🔢 计数器</h2>
+    <div class="counter" id="counter">0</div>
+    <button id="btn-increment" onclick="increment()">+1</button>
+    <button id="btn-reset" onclick="resetCounter()" style="margin-left:8px;background:#888">归零</button>
+  </div>
+
+  <div class="section">
+    <h2>📎 文件上传</h2>
+    <input type="file" id="file-upload" />
+    <div style="margin-top:10px">
+      <label class="upload-area" style="display:block;border:2px dashed #ddd;border-radius:8px;padding:20px;text-align:center;cursor:pointer;color:#999" onclick="document.getElementById('file-btn-input').click()">
+        📁 点击上传文件（Element Plus 风格）
+      </label>
+      <input type="file" id="file-btn-input" style="display:none" onchange="showResult('上传成功: ' + this.files[0].name, 'success')" />
+    </div>
+  </div>
+
+  <div id="result"></div>
+</div>
+<script>
+function showResult(msg, type) {
+  const el = document.getElementById('result');
+  el.textContent = msg;
+  el.className = type;
+}
+let count = 0;
+function increment() {
+  document.getElementById('counter').textContent = ++count;
+  showResult('计数: ' + count, 'info');
+}
+function resetCounter() {
+  count = 0;
+  document.getElementById('counter').textContent = '0';
+  showResult('计数器已归零', 'info');
+}
+</script>
+</body>
+</html>
