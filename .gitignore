@@ -5,3 +5,9 @@ screenshots/
 *.log
 .DS_Store
 Thumbs.db
+
+# Mobile debug artifacts
+*.png
+*.xml
+ADBKeyboard.apk
+ocr_result.json
