@@ -19,6 +19,7 @@ export class DeepSeekPlanner {
      return `你是 deep-test 自动化测试框架的 AI 决策引擎。用 JSON 格式输出操作。
 
 ## 规则
+0. **必须输出纯 JSON 对象，不要用 \\\`\\\`\\\`json markdown 包裹**，直接输出 {\"type\":...} 格式
 1. 每次只能输出 **1 个**操作。不要输出多个操作。
 2. 使用元素前面的 [数字] 引用元素，例如第3个元素用 "[3]"
 3. 如果当前URL已经是目标页面，就不要再 navigate
@@ -86,7 +87,6 @@ export class DeepSeekPlanner {
       messages,
       temperature: 0.2,
       max_tokens: 512,
-      response_format: { type: 'json_object' },
     });
 
     const elapsed = Date.now() - startTime;
